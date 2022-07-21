@@ -1,3 +1,2 @@
-# This program prints Hello, world!
-
-print('Hello, world!')
+# This program welcomes the user
+print("Hello User, Welcome to Hotel Scrummy)

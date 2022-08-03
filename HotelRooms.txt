@@ -1,6 +1,0 @@
-Full Name           UserName          Password     Room Number 
-Arthur Zenduro     SpiciestKitty       TeamDamp       002
-Thisura Nawalage     thinthis       username123       001
-Thisuranawalage     thinthis       username       0004
-Phone Pae     Phone       TeamDamp       004
-Thisura Nawalge     thisura       username       001

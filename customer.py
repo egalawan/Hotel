@@ -1,5 +1,3 @@
-from distutils.sysconfig import customize_compiler
-
 
 class Customer():
     def __init__(self):

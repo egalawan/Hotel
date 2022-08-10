@@ -25,7 +25,7 @@ class HotelGUI():
         self.ViewAvailableRooms = tk.Frame(self.window)
         self.ModifyReservation = tk.Frame(self.window)
         
-        self.
+        self.FrontLayer = tk.Frame(self.Window)
         #calling the main page and the labels and buttons assigned to 'main'
         
         self.FrontPage()
@@ -42,7 +42,8 @@ class HotelGUI():
         self.main.pack()
 
         self.welcome_text = tk.Label(self.main, text ="Welcome to Hotel Scrummy",
-                                                font = ("Georgia", 30))
+                                                font = ("Georgia", 30),
+                                                color = "#97b9f0")
 
         self.Info_text = tk.Label(self.main, text ="Team Damp",
                                                 font = ("Times New Roman", 15))

@@ -25,8 +25,9 @@ class HotelGUI():
         self.ViewAvailableRooms = tk.Frame(self.window)
         self.ModifyReservation = tk.Frame(self.window)
         
-        self.FrontLayer = tk.Frame(self.Window)
+        self.FrontLayer = tk.Frame(self.window,bd=2,relief=RAISED)
         #calling the main page and the labels and buttons assigned to 'main'
+        
         
         self.FrontPage()
         self.window.mainloop()
@@ -39,27 +40,32 @@ class HotelGUI():
     def FrontPage(self):
         #Labels for main Window
         #Main Window Start
-        self.main.pack()
+        self.main.grid(row = 0, column = 0)
+        self.FrontLayer.grid(row = 1, column = 0)
+
+        self.c = Canvas(self.FrontLayer, width=340, height=200)
+        
 
         self.welcome_text = tk.Label(self.main, text ="Welcome to Hotel Scrummy",
-                                                font = ("Georgia", 30),
-                                                color = "#97b9f0")
+                                                font = ("Georgia", 30))
 
         self.Info_text = tk.Label(self.main, text ="Team Damp",
                                                 font = ("Times New Roman", 15))
                                                 
 
 
-        self.buttonLogin = tk.Button(self.main, text = 'Log In', 
-                                        command = self.OpenLogin)
+        self.buttonLogin = tk.Button(self.FrontLayer, text = 'Log In',
+                                                      activebackground = 'green',
+                                                      foreground= "green",
+                                                      command = self.OpenLogin)
 
-        self.buttonRegister = tk.Button(self.main, text = 'Register', 
+        self.buttonRegister = tk.Button(self.FrontLayer, text = 'Register', 
                                         command = self.OpenRegister)
         
-        self.buttonOpenRooms = tk.Button(self.main, text = 'Available rooms', 
+        self.buttonOpenRooms = tk.Button(self.FrontLayer, text = 'Available rooms', 
                                         command = self.OpenRooms)
 
-        self.buttonModify = tk.Button(self.main, text = 'Edit Reservation', 
+        self.buttonModify = tk.Button(self.FrontLayer, text = 'Edit Reservation', 
                                         command = self.OpenModify)
         
         #image
@@ -76,7 +82,7 @@ class HotelGUI():
         self.labelImage.image = self.my_img
         
         #quit button
-        button_quit = tk.Button(self.main, text = 'Exit Greatest Hotel', 
+        button_quit = tk.Button(self.FrontLayer, text = 'Exit Greatest Hotel', 
                                                 command = self.window.destroy)
         
         #was trying to change the colors of each of the buttons and labels but didnt work
@@ -91,24 +97,25 @@ class HotelGUI():
         #.grid and .pack() are like the printing on the gui,
         #there are different ways to print .grid makes it a little easier to place
         #the buttons and labels next to each other
-        self.labelImage.grid(row = 3, column = 1)
-        
-        self.welcome_text.grid(row = 0, column = 1)
-        self.Info_text.grid(row = 1, column = 1) 
+        self.labelImage.grid(row = 0, column = 1)
+
+        self.c.grid(row = 1, column = 0)
+        self.welcome_text.grid(row = 0, column = 0)
+        self.Info_text.grid(row = 1, column = 0) 
         #buttons on main window in order
-        self.buttonLogin.grid(row = 4, column = 1)
-        self.buttonRegister.grid(row = 5, column = 1)
-        self.buttonOpenRooms.grid(row = 6, column = 1)
-        self.buttonModify.grid(row = 7, column = 1)
-        button_quit.grid(row = 9, column = 1)
+        self.buttonLogin.grid(row = 0, column = 0)
+        self.buttonRegister.grid(row = 1, column = 0)
+        self.buttonOpenRooms.grid(row = 2, column = 0)
+        self.buttonModify.grid(row = 3, column = 0)
+        button_quit.grid(row = 4, column = 0)
         
     #--------------------------------------------------------------------------------------------------#
     def OpenLogin(self):
         #deleting the previouse packs so that it switches 'frames'
-        self.main.pack_forget()
-
+        self.main.grid_forget()
+        self.FrontLayer.grid_forget()
         #calling on the new frame which is the LogIn Page
-        self.LogIn.pack()
+        self.LogIn.grid()
         
         #Inside the OpenLogin Window Now##
         self.LogInMessage = tk.Label(self.LogIn, text ="Welcome Back User",
@@ -153,7 +160,7 @@ class HotelGUI():
     
     #--------------------------------------------------------------------------------------------------#
     def CheckLogin(self):
-        self.LogIn.pack_forget()
+        self.LogIn.grid_forget()
         ##for when logging in and need to check if information is correct and in other database
         ##if information isnt on the database, need to ask user to re-enter or to make a new account
         # used for command
@@ -162,11 +169,14 @@ class HotelGUI():
    
     #--------------------------------------------------------------------------------------------------#
     def Go_back(self):
-        self.LogIn.pack_forget()
-        self.RegisterNewUser.pack_forget()
-        self.ViewAvailableRooms.pack_forget()
-        self.ModifyReservation.pack_forget()
-        self.main.pack()
+        #'forgetting each of the last pages
+        self.LogIn.grid_forget()
+        self.RegisterNewUser.grid_forget()
+        self.ViewAvailableRooms.grid_forget()
+        self.ModifyReservation.grid_forget()
+        #adding the main page
+        self.main.grid()
+        self.FrontLayer.grid()
     
     #--------------------------------------------------------------------------------------------------#
     
@@ -195,9 +205,9 @@ class HotelGUI():
    
     #--------------------------------------------------------------------------------------------------#
     def OpenRegister(self):
-        self.main.pack_forget()
+        self.main.grid_forget()
         #deleting the previous page and switching 'frames' 
-        self.RegisterNewUser.pack()
+        self.RegisterNewUser.grid()
 
         #Inside the OpenLogin Window Now##
         self.LogInMessage = tk.Label(self.RegisterNewUser, text ="Sign Up",
@@ -253,8 +263,8 @@ class HotelGUI():
     #showing the users all the rooms that are open "inventory"
     #--------------------------------------------------------------------------------------------------#
     def OpenRooms(self):
-        self.main.pack_forget()
-        self.ViewAvailableRooms.pack()
+        self.main.grid_forget()
+        self.ViewAvailableRooms.grid()
         f = open('room_data.csv', 'r')
         with f:
             self.reader = csv.reader(f)
@@ -263,7 +273,7 @@ class HotelGUI():
                 for e in row:
                     
                     self.information = tk.Label(self.ViewAvailableRooms, text = row)
-                self.information.pack()    
+                self.information.grid()    
                 
         f = open('user_data.csv', 'r')
         with f:
@@ -273,7 +283,7 @@ class HotelGUI():
                 for e in userinfo:
                     
                     self.information = tk.Label(self.ViewAvailableRooms, text = userinfo)
-                self.information.pack()    
+                self.information.grid()    
                 
         ##need to print out the text file with database
         #with open("")
@@ -283,8 +293,8 @@ class HotelGUI():
    #then check hotel database to see if confirmation number matches a room 
     #--------------------------------------------------------------------------------------------------#
     def OpenModify(self):
-        self.main.pack_forget()
-        self.ModifyReservation.pack()
+        self.main.grid_forget()
+        self.ModifyReservation.grid()
 
         self.Lastname = tk.Label(self.RegisterNewUser, text = 'Enter Last Name:')
         self.Lastname_entry = Entry(self.RegisterNewUser)
@@ -311,6 +321,3 @@ class HotelGUI():
 
 if __name__ == "__main__":
     base = HotelGUI()
-
-
-

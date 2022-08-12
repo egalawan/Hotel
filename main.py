@@ -25,7 +25,7 @@ class HotelGUI():
         self.RegisterNewUser = tk.Frame(self.window)
         self.ViewAvailableRooms = tk.Frame(self.window)
         self.ModifyReservation = tk.Frame(self.window)
-        
+
         #calling the main page and the labels and buttons assigned to 'main'
         
         

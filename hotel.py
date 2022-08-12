@@ -5,7 +5,7 @@ class Hotel():
         type_Room = "Double"
 
         print(Room_Number, type_Room)
-    def getRoomNumber(self)
-        RoomNumber = 
+    def getRoomNumber(self):
+        RoomNumber = 0
 
 data = Hotel()

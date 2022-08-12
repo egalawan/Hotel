@@ -46,10 +46,10 @@ class HotelGUI():
         
 
         self.welcome_text = tk.Label(self.main, text ="Welcome to Hotel Scrummy",
-                                                font = ("Georgia", 20))
+                                                font = ("Georgia", 20), fg= "#578ee6")
 
         self.Info_text = tk.Label(self.main, text ="from Team Damp",
-                                                font = ("Times New Roman", 15))
+                                                font = ("Times New Roman", 15), fg= "#ffb3e9")
                                                 
 
 
@@ -81,7 +81,7 @@ class HotelGUI():
         #self.labelImage.image = self.my_img
         
         #quit button
-        button_quit = tk.Button(self.main, text = 'Exit Greatest Hotel', 
+        button_quit = tk.Button(self.main, text = 'Exit', 
                                                 command = self.window.destroy)
         
         #was trying to change the colors of each of the buttons and labels but didnt work
@@ -101,12 +101,12 @@ class HotelGUI():
 
         #self.canvas_.pack(row = 5, column = 1)
         self.welcome_text.pack()
-        self.Info_text.pack()
+        self.Info_text.pack(pady= 5)
 
         #buttons on main window in order
         self.buttonLogin.pack(side = LEFT, expand=True, fill = 'x')
         self.buttonRegister.pack(side = TOP, expand=True, fill = 'x')
-        self.buttonOpenRooms.pack(side = TOP, expand=True, pady = 5, fill = 'x')
+        self.buttonOpenRooms.pack(side = TOP, expand=True, fill = 'x')
         self.buttonModify.pack(side = TOP, expand=True, fill = 'x')
         button_quit.pack(side = BOTTOM, expand=True)
         
@@ -267,6 +267,9 @@ class HotelGUI():
         self.ModifyReservation.pack_forget()
         self.main.pack_forget()
         self.ViewAvailableRooms.pack()
+        self.availableRooms = tk.Label(self.ViewAvailableRooms, text ="Available Rooms",
+                                                font = ("Georgia", 20), fg="#578ee6")
+        self.availableRooms.pack(pady= 10)
         
         f = open('hotels.csv', 'r')
         with f:

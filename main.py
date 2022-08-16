@@ -21,7 +21,7 @@ class HotelGUI():
 
         #Creating each 'window' space for the information
         self.main = tk.Frame(self.window)
-        self.LogIn = tk.Frame(self.window)
+        self.confirm = tk.Frame(self.window)
         self.RegisterNewUser = tk.Frame(self.window)
         self.ViewAvailableRooms = tk.Frame(self.window)
         self.ModifyReservation = tk.Frame(self.window)
@@ -52,14 +52,13 @@ class HotelGUI():
                                                 font = ("Times New Roman", 15), fg= "#ffb3e9")
                                                 
 
+        # self.buttonLogin = tk.Button(self.main, text = 'Log In',
+        #                                               activebackground = 'green',
+        #                                               foreground= "green",
+        #                                               command = self.OpenLogin)
 
-        self.buttonLogin = tk.Button(self.main, text = 'Log In',
-                                                      activebackground = 'green',
-                                                      foreground= "green",
-                                                      command = self.OpenLogin)
-
-        self.buttonRegister = tk.Button(self.main, text = 'Register', 
-                                        command = self.OpenRegister)
+        # self.buttonRegister = tk.Button(self.main, text = 'Register', 
+        #                                 command = self.OpenRegister)
         
         self.buttonOpenRooms = tk.Button(self.main, text = 'Available rooms', 
                                         command = self.OpenRooms)
@@ -84,94 +83,86 @@ class HotelGUI():
         button_quit = tk.Button(self.main, text = 'Exit', 
                                                 command = self.window.destroy)
         
-        #was trying to change the colors of each of the buttons and labels but didnt work
-        #self.welcome_text.configure(bg = '#458B74')
-        #self.buttonLogin.configure(bg = 'red')
-        #self.buttonRegister.configure(bg = '#458B74')
-        #self.buttonOpenRooms.configure(bg = '#458B74')
-        #self.buttonModify.configure(bg = '#458B74')
-        
 
         #Main Window Page with all the functions to show the order on the page
         #.pack and .pack() are like the printing on the gui,
         #there are different ways to print .pack makes it a little easier to place
         #the buttons and labels next to each other
         
-        self.labelImage.pack()
+        self.labelImage.pack(pady=5)
 
         #self.canvas_.pack(row = 5, column = 1)
         self.welcome_text.pack()
-        self.Info_text.pack(pady= 5)
+        self.Info_text.pack(pady= 10)
 
         #buttons on main window in order
-        self.buttonLogin.pack(side = LEFT, expand=True, fill = 'x')
-        self.buttonRegister.pack(side = TOP, expand=True, fill = 'x')
-        self.buttonOpenRooms.pack(side = TOP, expand=True, fill = 'x')
-        self.buttonModify.pack(side = TOP, expand=True, fill = 'x')
+        # self.buttonLogin.pack(side = LEFT, expand=True, fill = 'x')
+        # self.buttonRegister.pack(side = TOP, expand=True, fill = 'x')
+        self.buttonOpenRooms.pack(side = TOP, expand=True)
+        self.buttonModify.pack(side = TOP, expand=True)
         button_quit.pack(side = BOTTOM, expand=True)
         
     #--------------------------------------------------------------------------------------------------#
-    def OpenLogin(self):
-        #deleting the previouse packs so that it switches 'frames'
+    # def OpenLogin(self):
+    #     #deleting the previouse packs so that it switches 'frames'
         
-        self.main.pack_forget()
-        #calling on the new frame which is the LogIn Page
-        self.LogIn.pack()
+    #     self.main.pack_forget()
+    #     #calling on the new frame which is the LogIn Page
+    #     self.LogIn.pack()
         
-        #Inside the OpenLogin Window Now##
-        self.LogInMessage = tk.Label(self.LogIn, text ="Welcome Back User",
-                                                 font = ("Times New Roman",30))
+    #     #Inside the OpenLogin Window Now##
+    #     self.LogInMessage = tk.Label(self.LogIn, text ="Welcome Back User",
+    #                                              font = ("Times New Roman",30))
         
         
-        #creating spots for the user to be able to put in information
-        self.User_name = tk.Label(self.LogIn, text = 'Username:')
-        self.Username_entry = Entry(self.LogIn)
+    #     #creating spots for the user to be able to put in information
+    #     self.User_name = tk.Label(self.LogIn, text = 'Username:')
+    #     self.Username_entry = Entry(self.LogIn)
         
-        #confirm button
-        self.button_next = tk.Button(self.LogIn, text = 'Next',
-                                        command = self.CheckLogin)
+    #     #confirm button
+    #     self.button_next = tk.Button(self.LogIn, text = 'Next',
+    #                                     command = self.CheckLogin)
 
-        #back buton duh
-        self.back_button = tk.Button(self.LogIn, text = 'back',
-                                        command = self.Go_back)
+    #     #back buton duh
+    #     self.back_button = tk.Button(self.LogIn, text = 'back',
+    #                                     command = self.Go_back)
 
 
-        ######need to work on storing the username and password information
+    #     ######need to work on storing the username and password information
 
-        self.Pass_word = tk.Label(self.LogIn, text = 'Password:')
-        self.Password_entry = Entry(self.LogIn, show = "*")
+    #     self.Pass_word = tk.Label(self.LogIn, text = 'Password:')
+    #     self.Password_entry = Entry(self.LogIn, show = "*")
         
-        ##printing username and password on the LogIn page using .pack()??
-        self.LogInMessage.pack()
+    #     ##printing username and password on the LogIn page using .pack()??
+    #     self.LogInMessage.pack()
 
-        self.User_name.pack()
-        self.Username_entry.pack()
+    #     self.User_name.pack()
+    #     self.Username_entry.pack()
 
-        self.Pass_word.pack()
-        self.Password_entry.pack()
+    #     self.Pass_word.pack()
+    #     self.Password_entry.pack()
 
         
-        #printing back button
-        self.button_next.pack()
-        self.back_button.pack()
+    #     #printing back button
+    #     self.button_next.pack()
+    #     self.back_button.pack()
         
 
         ####### end of OpenLogin Window
     #--------------------------------------------------------------------------------------------------#
     
     #--------------------------------------------------------------------------------------------------#
-    def CheckLogin(self):
-        self.LogIn.pack_forget()
-        ##for when logging in and need to check if information is correct and in other database
-        ##if information isnt on the database, need to ask user to re-enter or to make a new account
-        # used for command
-        #  
+    # def CheckLogin(self):
+    #     self.LogIn.pack_forget()
+    #     for when logging in and need to check if information is correct and in other database
+    #     if information isnt on the database, need to ask user to re-enter or to make a new account
+    #     used for command
+    #       
     #--------------------------------------------------------------------------------------------------#
    
     #--------------------------------------------------------------------------------------------------#
     def Go_back(self):
         #'forgetting each of the last pages
-        self.LogIn.pack_forget()
         self.RegisterNewUser.pack_forget()
         self.ViewAvailableRooms.pack_forget()
         self.ModifyReservation.pack_forget()
@@ -184,81 +175,81 @@ class HotelGUI():
     #saving and sending information from user entry's
     #--------------------------------------------------------------------------------------------------#
     #arrray to keep the entry information from the user
-    names_list=[]
+    #names_list=[]
 
     #retrieving the information from the entry box
-    def Add(self):
-        self.list=[self.fullname_entry.get(),
-                 self.Username_entry.get(),
-                 self.newPassword_entry.get()]
-        self.names_list.append(self.list)
+    # def Add(self):
+    #     self.list=[self.fullname_entry.get(),
+    #              self.Username_entry.get(),
+    #              self.newPassword_entry.get()]
+    #     self.names_list.append(self.list)
     
-    #sending the information to the database file 
-    def send_UserInfo(self):
-        ##opening the data base to input information
-        with open('user_data.csv', 'a') as file:
-            Writer = writer(file)
-            Writer.writerows(self.names_list)
+    # #sending the information to the database file 
+    # def send_UserInfo(self):
+    #     ##opening the data base to input information
+    #     with open('user_data.csv', 'a') as file:
+    #         Writer = writer(file)
+    #         Writer.writerows(self.names_list)
         
 
 
     #--------------------------------------------------------------------------------------------------#
    ##SIGN UP PAGE
     #--------------------------------------------------------------------------------------------------#
-    def OpenRegister(self):
-        self.main.pack_forget()
+    # def OpenRegister(self):
+    #     self.main.pack_forget()
 
-        #deleting the previous page and switching 'frames' 
-        self.RegisterNewUser.pack()
+    #     #deleting the previous page and switching 'frames' 
+    #     self.RegisterNewUser.pack()
         
-        #Inside the OpenLogin Window Now##
-        self.LogInMessage = tk.Label(self.RegisterNewUser, text ="Sign Up",
-        font = ("Times New Roman", 30))
+    #     #Inside the OpenLogin Window Now##
+    #     self.LogInMessage = tk.Label(self.RegisterNewUser, text ="Sign Up",
+    #     font = ("Times New Roman", 30))
         
         
-        #creating spots for the user to be able to put in information
-        self.full_name = tk.Label(self.RegisterNewUser, text = 'Enter First and Last Name:')
-        self.fullname_entry = Entry(self.RegisterNewUser)
+    #     #creating spots for the user to be able to put in information
+    #     self.full_name = tk.Label(self.RegisterNewUser, text = 'Enter First and Last Name:')
+    #     self.fullname_entry = Entry(self.RegisterNewUser)
         
-        ######need to work on storing the username and password information
+    #     ######need to work on storing the username and password information
 
-        self.Username_ = tk.Label(self.RegisterNewUser, text = 'Create a Username:')
-        self.Username_entry = Entry(self.RegisterNewUser)
+    #     self.Username_ = tk.Label(self.RegisterNewUser, text = 'Create a Username:')
+    #     self.Username_entry = Entry(self.RegisterNewUser)
 
-        self.newPassword_ = tk.Label(self.RegisterNewUser, text = 'Create a Password:')
-        self.newPassword_entry = Entry(self.RegisterNewUser)
+    #     self.newPassword_ = tk.Label(self.RegisterNewUser, text = 'Create a Password:')
+    #     self.newPassword_entry = Entry(self.RegisterNewUser)
 
-        #buttons to save/which gets the information from the entry box/
-        #and button to write on file
-        self.button_next = tk.Button(self.RegisterNewUser, text = 'next',
-                                        command = self.send_UserInfo)
+    #     #buttons to save/which gets the information from the entry box/
+    #     #and button to write on file
+    #     self.button_next = tk.Button(self.RegisterNewUser, text = 'next',
+    #                                     command = self.send_UserInfo)
         
-        self.button_save = tk.Button(self.RegisterNewUser, text = 'save',
-                                        command = self.Add)
+    #     self.button_save = tk.Button(self.RegisterNewUser, text = 'save',
+    #                                     command = self.Add)
         
-        #back buton duh
-        self.back_button = tk.Button(self.RegisterNewUser, text = 'back',
-                                        command = self.Go_back)
+    #     #back buton duh
+    #     self.back_button = tk.Button(self.RegisterNewUser, text = 'back',
+    #                                     command = self.Go_back)
 
-        ### in the window
-        self.LogInMessage.pack()
-        self.full_name.pack()
-        self.fullname_entry.pack()
+    #     ### in the window
+    #     self.LogInMessage.pack()
+    #     self.full_name.pack()
+    #     self.fullname_entry.pack()
 
-        self.Username_.pack()
-        self.Username_entry.pack()
+    #     self.Username_.pack()
+    #     self.Username_entry.pack()
 
-        self.newPassword_.pack()
-        self.newPassword_entry.pack()
+    #     self.newPassword_.pack()
+    #     self.newPassword_entry.pack()
 
-        #printing back button
-        self.button_save.pack()
+    #     #printing back button
+    #     self.button_save.pack()
         
-        self.button_next.pack()
+    #     self.button_next.pack()
         
-        self.back_button.pack()
+    #     self.back_button.pack()
         
-        #On the window
+    #     #On the window
     #--------------------------------------------------------------------------------------------------#
     
     #showing the users all the rooms that are open "inventory"
@@ -267,25 +258,60 @@ class HotelGUI():
         self.ModifyReservation.pack_forget()
         self.main.pack_forget()
         self.ViewAvailableRooms.pack()
-        self.availableRooms = tk.Label(self.ViewAvailableRooms, text ="Available Rooms",
-                                                font = ("Georgia", 20), fg="#578ee6")
-        self.availableRooms.pack(pady= 10)
         
-        f = open('hotels.csv', 'r')
-        with f:
-            self.reader = csv.reader(f)
-            for row in self.reader:
-                print(row)
-                for e in row:
+        self.availableRooms = tk.Label(self.ViewAvailableRooms, text ="Book a Room",
+                                                font = ("Georgia", 20), fg="#578ee6")
+        self.availableRooms.pack(side= TOP, pady= 10)
+        
+        #roomnumber_list = []
+
+        ## reads file and prints onto the page
+        with open('hotels.csv', 'r') as f:
+            reader = csv.reader(f)
+            #skips first line
+            next(reader)
+            for row in reader:
+                for element in row:
+                    if element[3] == "false":
+                        self.information = tk.Label(self.ViewAvailableRooms, text="".join(row))
+                        self.information.pack()                   
+
+                    elif element[3] == "true":
+                        pass  
                     
-                    self.information = tk.Label(self.ViewAvailableRooms, text = row)
-                self.information.pack()    
-      
+        self.select_Room = tk.Label(self.ViewAvailableRooms, text ="Select Room:")
+        self.room_entry = Entry(self.ViewAvailableRooms)
+        self.room_button = tk.Button(self.ViewAvailableRooms, text = "Confirm Room", 
+                                                              command = self.confirm_Page)
+        self.select_Room.pack(side=LEFT,pady= 10)
+        self.room_entry.pack(side=LEFT,pady= 10)
+        self.room_button.pack(side=BOTTOM,pady= 10)
                 
         ##need to print out the text file with database
-        #with open("")
+
     #--------------------------------------------------------------------------------------------------#
-   
+    def confirm_Page(self):
+        #forgetting the previous 'page' and opening up a new page so that the user can see which room they selected 
+        #and the information about the room and their stay?
+        self.ViewAvailableRooms.pack_forget()
+        self.confirm.pack()
+        ##TITLE LABEL AGAIN
+        
+        self.thankyou = tk.Label(self.confirm, text ="Thank you for booking",
+                                                font = ("Georgia", 20), fg="#578ee6")
+        
+        self.pic2_ = Image.open("thankyou.webp")
+        self.pic2_resize = self.pic2_.resize((150,150))
+        self.my_img2 = ImageTk.PhotoImage(self.pic2_resize)
+
+        #making the label
+        self.labelImage2 = tk.Label(self.confirm,image=self.my_img2)
+        #self.labelImage.image = self.my_img
+        self.thankyou.pack(pady= 10)
+        self.labelImage2.pack()
+
+    #--------------------------------------------------------------------------------------------------#
+
    #check user's reservation information, so will need to check the  user database for their information 
    #then check hotel database to see if confirmation number matches a room 
 

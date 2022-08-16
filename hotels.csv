@@ -1,5 +1,6 @@
-#292, Suite, 3 Rooms
-#292, Suite, 3 Rooms
-#292, Suite, 3 Rooms
-#292, Suite, 3 Rooms
-#292, Suite, 3 Rooms
+RoomNumber, RoomType, NumOfBeds, OccupancyStatus
+#001, Standard, 1 Bed, false
+#042, King, 1 Bed, false
+#011, Deluxe, 2 Beds, false
+#007, Penthouse, 3 Beds, false
+#69420, Honeymoon, 1 Bed, false

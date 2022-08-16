@@ -293,14 +293,22 @@ class HotelGUI():
     def confirm_Page(self):
         #forgetting the previous 'page' and opening up a new page so that the user can see which room they selected 
         #and the information about the room and their stay?
-
+        self.ViewAvailableRooms.pack_forget()
+        self.confirm.pack()
         ##TITLE LABEL AGAIN
         
         self.thankyou = tk.Label(self.confirm, text ="Thank you for booking",
                                                 font = ("Georgia", 20), fg="#578ee6")
         
+        self.pic2_ = Image.open("thankyou.webp")
+        self.pic2_resize = self.pic2_.resize((150,150))
+        self.my_img2 = ImageTk.PhotoImage(self.pic2_resize)
 
+        #making the label
+        self.labelImage2 = tk.Label(self.confirm,image=self.my_img2)
+        #self.labelImage.image = self.my_img
         self.thankyou.pack(pady= 10)
+        self.labelImage2.pack()
 
     #--------------------------------------------------------------------------------------------------#
 

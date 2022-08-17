@@ -1,5 +1,6 @@
-#292, Suite, 3 Rooms
-#292, Suite, 3 Rooms
-#292, Suite, 3 Rooms
-#292, Suite, 3 Rooms
-#292, Suite, 3 Rooms
+Room Number,Room Type,Number of Beds,Status
+#12,Standard,1 Bed,Unavailable
+#42,King,1 Bed,Unavailable
+#11,Deluxe,2 Beds,Unavailable
+#72,Penthouse,3 Beds,Unavailable
+#69420,Honeymoon,1 Bed,Unavailable

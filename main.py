@@ -11,9 +11,23 @@ from customer import Customer
 
 class HotelGUI():
     """
-    Hotel GUI with included functionality.
+    Date: August 02, 2022
 
-    Hotel class that holds all of our methods
+    Programmer:Thisura Nawalage
+
+    A hotel experience is simulated with a GUI.
+
+    A hotel GUI is shown. This hotel class that holds all of our methods. 
+    This class simulates the functionality of a hotel with all of our included methods. 
+
+    Methods list:
+    FrontPage
+    OpenRooms
+    GoBack
+    ConfirmPage
+    OpenModify
+    AddLastName
+    LastNameConf
 
     Parameters:
     None
@@ -22,9 +36,13 @@ class HotelGUI():
     None
     """
 
-#--------------------------------------------------------------------------------------------------#
+    #--------------------------------------------------------------------------------------------------#
     def __init__(self):
         """
+        Date:August 02, 2022
+
+        Programmer:Thisura Nawalage
+
         This is the main GUI window for the user to interact with.
 
         Creates the 'interface' and we can change the title of the window and can also the dimensions of the window, and the color
@@ -60,7 +78,12 @@ class HotelGUI():
     #--------------------------------------------------------------------------------------------------#
     #Main Page
     def FrontPage(self):
+     
         """
+        Date:August 02 2022
+
+        Programmer:Arturo Zenteno/Thisura Nawalage
+
         Displays the front page.
 
         Displays the front page and all of the functional buttons that are on it along with a photo of our hotel.
@@ -154,6 +177,10 @@ class HotelGUI():
     #--------------------------------------------------------------------------------------------------#
     def OpenRooms(self):
         """
+        Date:August 4, 2022
+
+        Programmer:Phone Pyae Zaw/Mithell Berbera
+
         Displays available rooms.
 
         Displays all of the rooms within our hotel and allows for user selection.
@@ -171,14 +198,6 @@ class HotelGUI():
         self.availableRooms = tk.Label(self.ViewAvailableRooms, text ="Book a Room",
                                                 font = ("Georgia", 20), fg="#578ee6")
         self.availableRooms.pack(side= TOP, pady= 10)
-        
-        #roomnumber_list = []
-
-        ## reads file and prints onto the page
-        #self.df = pd.read_csv("hotels.csv")
-        #self.room_Num = self.room_entry.get()
-        #self.df.loc[self.df['RoomNumber'] == self.room_Num, 'Status'] = 'Taken'
-        #self.df.to_csv("hotels.csv", index = False)
         
         with open('hotels.csv', 'r') as f:
             reader = csv.reader(f)
@@ -204,6 +223,10 @@ class HotelGUI():
     #--------------------------------------------------------------------------------------------------#
     def confirm_Page(self):
         """
+        Date:August 14, 2022
+
+        Programmer:Thisura Nawalage/Arturo Zenteno
+
         Confirms your room.
 
         Confirms the user's selected room and marks it as unavailable.
@@ -250,15 +273,17 @@ class HotelGUI():
     conf_list = []
     def AddLastName(self):
         """
-        Summary line.
+        Date:August 8, 2022
 
-        Extended description of function.
+        Programmer:Phone Pyae Zaw/Mithell Berbera
+
+        Get information from the entry text from the user and then assigns to list array .
 
         Parameters:
-        arg1 (int): Description of arg1
+        None
 
         Returns:
-        int: Description of return value
+        None
         """
         self.name_Conf=[self.Lastname_entry.get(),
                     self.ConfNum_entry.get()]
@@ -266,7 +291,11 @@ class HotelGUI():
 
     def LastNameConf(self):
         """
-        Checks if last name is in the database
+        Date:August 8, 2022
+
+        Programmer:Phone Pyae Zaw/Mithell Berbera
+
+        Checks if last name is in the database from the entry from addLastname Method
 
         This method will check if the last name is in the database and will print out an error if it is non-existent.
         Parameters:
@@ -289,6 +318,10 @@ class HotelGUI():
 
     def OpenModify(self):
         """
+        Date:August 8, 2022
+
+        Programmer:Phone Pyae Zaw/Mithell Berbera
+
         Modifies user's booking.
 
         This method will ask for the user's information and allow them to cancel their booking.

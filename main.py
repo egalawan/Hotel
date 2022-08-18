@@ -4,16 +4,57 @@ from tkinter import *
 from PIL import Image, ImageTk
 import csv
 from csv import *
+import pandas as pd
 from tkinter import messagebox
 from tkinter.messagebox import showinfo
 from customer import Customer
 
 class HotelGUI():
-     #Attributes - Fields
-     #Constructors
-    
+    """
+    Date: August 02, 2022
+
+    Programmer:Thisura Nawalage
+
+    A hotel experience is simulated with a GUI.
+
+    A hotel GUI is shown. This hotel class that holds all of our methods. 
+    This class simulates the functionality of a hotel with all of our included methods. 
+
+    Methods list:
+    FrontPage
+    OpenRooms
+    GoBack
+    ConfirmPage
+    OpenModify
+    AddLastName
+    LastNameConf
+
+    Parameters:
+    None
+
+    Returns:
+    None
+    """
+
     #--------------------------------------------------------------------------------------------------#
     def __init__(self):
+        """
+        Date:August 02, 2022
+
+        Programmer:Thisura Nawalage
+
+        This is the main GUI window for the user to interact with.
+
+        Creates the 'interface' and we can change the title of the window and can also the dimensions of the window, and the color
+        We also create multiple frames that are used to be pages on the interface. 
+
+        Parameters:
+        None
+
+        Returns:
+        None
+        """
+
         self.window = tk.Tk()
         self.window.title("Hotel Scrummy")
         #self.window.configure(bg = '#458B74')
@@ -28,7 +69,6 @@ class HotelGUI():
 
         #calling the main page and the labels and buttons assigned to 'main'
         
-        
         self.FrontPage()
         self.window.mainloop()
         ##end Main Window
@@ -38,6 +78,22 @@ class HotelGUI():
     #--------------------------------------------------------------------------------------------------#
     #Main Page
     def FrontPage(self):
+     
+        """
+        Date:August 02 2022
+
+        Programmer:Arturo Zenteno/Thisura Nawalage
+
+        Displays the front page.
+
+        Displays the front page and all of the functional buttons that are on it along with a photo of our hotel.
+
+        Parameters:
+        None
+
+        Returns:
+        None
+        """
         #Labels for main Window
         #Main Window Start
         self.main.pack(side = TOP)
@@ -63,7 +119,7 @@ class HotelGUI():
         self.buttonOpenRooms = tk.Button(self.main, text = 'Available rooms', 
                                         command = self.OpenRooms)
 
-        self.buttonModify = tk.Button(self.main, text = 'Edit Reservation', 
+        self.buttonModify = tk.Button(self.main, text = 'Edit reservation', 
                                         command = self.OpenModify)
         
         #image
@@ -102,6 +158,8 @@ class HotelGUI():
         self.buttonModify.pack(side = TOP, expand=True)
         button_quit.pack(side = BOTTOM, expand=True)
         
+<<<<<<< HEAD
+=======
     #--------------------------------------------------------------------------------------------------#
     # def OpenLogin(self):
     #     #deleting the previouse packs so that it switches 'frames'
@@ -147,9 +205,12 @@ class HotelGUI():
     #     self.button_next.pack()
     #     self.back_button.pack()
         
+>>>>>>> main
 
-        ####### end of OpenLogin Window
     #--------------------------------------------------------------------------------------------------#
+<<<<<<< HEAD
+
+=======
     
     #--------------------------------------------------------------------------------------------------#
     # def CheckLogin(self):
@@ -160,8 +221,10 @@ class HotelGUI():
     #       
     #--------------------------------------------------------------------------------------------------#
    
+>>>>>>> main
     #--------------------------------------------------------------------------------------------------#
     def Go_back(self):
+        """Returns to the front page"""
         #'forgetting each of the last pages
         self.RegisterNewUser.pack_forget()
         self.ViewAvailableRooms.pack_forget()
@@ -169,6 +232,8 @@ class HotelGUI():
         #adding the main page
 
         self.main.pack()
+<<<<<<< HEAD
+=======
     
     #--------------------------------------------------------------------------------------------------#
     
@@ -191,9 +256,106 @@ class HotelGUI():
     #         Writer = writer(file)
     #         Writer.writerows(self.names_list)
         
+>>>>>>> main
+
+
+    #'''showing the users all the rooms that are open "inventory"
+    #--------------------------------------------------------------------------------------------------#
+<<<<<<< HEAD
+    def OpenRooms(self):
+        """
+        Date:August 4, 2022
+
+        Programmer:Phone Pyae Zaw/Mithell Berbera
+
+        Displays available rooms.
+
+        Displays all of the rooms within our hotel and allows for user selection.
+
+        Parameters:
+        None
+
+        Returns:
+        None
+        """
+        self.ModifyReservation.pack_forget()
+        self.main.pack_forget()
+        self.ViewAvailableRooms.pack()
+        
+        self.availableRooms = tk.Label(self.ViewAvailableRooms, text ="Book a Room",
+                                                font = ("Georgia", 20), fg="#578ee6")
+        self.availableRooms.pack(side= TOP, pady= 10)
+        
+        with open('hotels.csv', 'r') as f:
+            reader = csv.reader(f)
+            #skips first line
+            next(reader)
+            ## WORK ON THIS PART
+            for row in reader:
+                self.information = tk.Label(self.ViewAvailableRooms, text=" ".join(row))
+                self.information.pack() 
+
+                ##dont think this part does anything 
+        #####################################
+        self.select_Room = tk.Label(self.ViewAvailableRooms, text ="Select Room:")
+        self.room_entry = Entry(self.ViewAvailableRooms)
+        self.room_button = tk.Button(self.ViewAvailableRooms, text = "Confirm Room", 
+                                                                command = self.confirm_Page)
+        self.select_Room.pack(side=LEFT,pady= 10)
+        self.room_entry.pack(side=LEFT,pady= 10)
+        self.room_button.pack(side=BOTTOM,pady= 10)
+                
+        ##need to print out the text file with database
+
+    #--------------------------------------------------------------------------------------------------#
+    def confirm_Page(self):
+        """
+        Date:August 14, 2022
+
+        Programmer:Thisura Nawalage/Arturo Zenteno
+
+        Confirms your room.
+
+        Confirms the user's selected room and marks it as unavailable.
+
+        Parameters:
+        None
+
+        Returns:
+        None
+        """
+        #forgetting the previous 'page' and opening up a new page so that the user can see which room they selected 
+        #and the information about the room and their stay?
+        
+        self.df = pd.read_csv("hotels.csv")
+        self.room_Num = self.room_entry.get()
+        self.df.loc[self.df['Room Number'] == '#'+self.room_Num, 'Status'] = 'Unavailable'
+        self.df.to_csv("hotels.csv", index = False)
+
+        self.ViewAvailableRooms.pack_forget()
+
+        self.confirm.pack()
+        ##TITLE LABEL AGAIN
+        
+        self.thankyou = tk.Label(self.confirm, text ="Thank you for booking",
+                                                font = ("Georgia", 20), fg="#578ee6")
+        
+        self.pic2_ = Image.open("thankyou.png")
+        self.pic2_resize = self.pic2_.resize((350,350))
+        self.my_img2 = ImageTk.PhotoImage(self.pic2_resize)
+
+        #making the label
+        self.labelImage2 = tk.Label(self.confirm,image=self.my_img2)
+        #self.labelImage.image = self.my_img
+        self.thankyou.pack(pady= 10)
+        self.labelImage2.pack()
 
 
     #--------------------------------------------------------------------------------------------------#
+
+    #check user's reservation information, so will need to check the  user database for their information 
+    #then check hotel database to see if confirmation number matches a room 
+=======
    ##SIGN UP PAGE
     #--------------------------------------------------------------------------------------------------#
     # def OpenRegister(self):
@@ -314,16 +476,43 @@ class HotelGUI():
 
    #check user's reservation information, so will need to check the  user database for their information 
    #then check hotel database to see if confirmation number matches a room 
+>>>>>>> main
 
     #--------------------------------------------------------------------------------------------------#
     conf_list = []
     def AddLastName(self):
+        """
+        Date:August 8, 2022
+
+        Programmer:Phone Pyae Zaw/Mithell Berbera
+
+        Get information from the entry text from the user and then assigns to list array .
+
+        Parameters:
+        None
+
+        Returns:
+        None
+        """
         self.name_Conf=[self.Lastname_entry.get(),
-                 self.ConfNum_entry.get()]
+                    self.ConfNum_entry.get()]
         self.conf_list.append(self.name_Conf)
 
-    ##checking if the last name and the confirmation number in the database is correct
     def LastNameConf(self):
+        """
+        Date:August 8, 2022
+
+        Programmer:Phone Pyae Zaw/Mithell Berbera
+
+        Checks if last name is in the database from the entry from addLastname Method
+
+        This method will check if the last name is in the database and will print out an error if it is non-existent.
+        Parameters:
+        None
+
+        Returns:
+        None
+        """
         f = open('room_data.csv', 'r')
         with f:
             self.reader = csv.reader(f)
@@ -337,6 +526,21 @@ class HotelGUI():
 
 
     def OpenModify(self):
+        """
+        Date:August 8, 2022
+
+        Programmer:Phone Pyae Zaw/Mithell Berbera
+
+        Modifies user's booking.
+
+        This method will ask for the user's information and allow them to cancel their booking.
+
+        Parameters:
+        None
+
+        Returns:
+        None
+        """
         self.main.pack_forget()
         self.ModifyReservation.pack()
 
@@ -370,4 +574,5 @@ class HotelGUI():
     #--------------------------------------------------------------------------------------------------#
 
 if __name__ == "__main__":
+    """Calls the main class."""
     base = HotelGUI()

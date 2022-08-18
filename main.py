@@ -158,8 +158,6 @@ class HotelGUI():
         self.buttonModify.pack(side = TOP, expand=True)
         button_quit.pack(side = BOTTOM, expand=True)
         
-<<<<<<< HEAD
-=======
     #--------------------------------------------------------------------------------------------------#
     # def OpenLogin(self):
     #     #deleting the previouse packs so that it switches 'frames'
@@ -205,12 +203,9 @@ class HotelGUI():
     #     self.button_next.pack()
     #     self.back_button.pack()
         
->>>>>>> main
+
 
     #--------------------------------------------------------------------------------------------------#
-<<<<<<< HEAD
-
-=======
     
     #--------------------------------------------------------------------------------------------------#
     # def CheckLogin(self):
@@ -221,7 +216,7 @@ class HotelGUI():
     #       
     #--------------------------------------------------------------------------------------------------#
    
->>>>>>> main
+
     #--------------------------------------------------------------------------------------------------#
     def Go_back(self):
         """Returns to the front page"""
@@ -232,8 +227,6 @@ class HotelGUI():
         #adding the main page
 
         self.main.pack()
-<<<<<<< HEAD
-=======
     
     #--------------------------------------------------------------------------------------------------#
     
@@ -256,12 +249,12 @@ class HotelGUI():
     #         Writer = writer(file)
     #         Writer.writerows(self.names_list)
         
->>>>>>> main
+
 
 
     #'''showing the users all the rooms that are open "inventory"
     #--------------------------------------------------------------------------------------------------#
-<<<<<<< HEAD
+
     def OpenRooms(self):
         """
         Date:August 4, 2022
@@ -355,7 +348,7 @@ class HotelGUI():
 
     #check user's reservation information, so will need to check the  user database for their information 
     #then check hotel database to see if confirmation number matches a room 
-=======
+
    ##SIGN UP PAGE
     #--------------------------------------------------------------------------------------------------#
     # def OpenRegister(self):
@@ -476,7 +469,7 @@ class HotelGUI():
 
    #check user's reservation information, so will need to check the  user database for their information 
    #then check hotel database to see if confirmation number matches a room 
->>>>>>> main
+
 
     #--------------------------------------------------------------------------------------------------#
     conf_list = []

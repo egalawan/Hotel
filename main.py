@@ -12,14 +12,10 @@ from customer import Customer
 class HotelGUI():
     """
     Date: August 02, 2022
-
     Programmer:Thisura Nawalage
-
     A hotel experience is simulated with a GUI.
-
     A hotel GUI is shown. This hotel class that holds all of our methods. 
     This class simulates the functionality of a hotel with all of our included methods. 
-
     Methods list:
     FrontPage
     OpenRooms
@@ -28,10 +24,8 @@ class HotelGUI():
     OpenModify
     AddLastName
     LastNameConf
-
     Parameters:
     None
-
     Returns:
     None
     """
@@ -40,17 +34,12 @@ class HotelGUI():
     def __init__(self):
         """
         Date:August 02, 2022
-
         Programmer:Thisura Nawalage
-
         This is the main GUI window for the user to interact with.
-
         Creates the 'interface' and we can change the title of the window and can also the dimensions of the window, and the color
         We also create multiple frames that are used to be pages on the interface. 
-
         Parameters:
         None
-
         Returns:
         None
         """
@@ -81,16 +70,11 @@ class HotelGUI():
      
         """
         Date:August 02 2022
-
         Programmer:Arturo Zenteno/Thisura Nawalage
-
         Displays the front page.
-
         Displays the front page and all of the functional buttons that are on it along with a photo of our hotel.
-
         Parameters:
         None
-
         Returns:
         None
         """
@@ -158,6 +142,7 @@ class HotelGUI():
         self.buttonModify.pack(side = TOP, expand=True)
         button_quit.pack(side = BOTTOM, expand=True)
         
+
     #--------------------------------------------------------------------------------------------------#
     # def OpenLogin(self):
     #     #deleting the previouse packs so that it switches 'frames'
@@ -206,6 +191,7 @@ class HotelGUI():
 
 
     #--------------------------------------------------------------------------------------------------#
+
     
     #--------------------------------------------------------------------------------------------------#
     # def CheckLogin(self):
@@ -258,16 +244,11 @@ class HotelGUI():
     def OpenRooms(self):
         """
         Date:August 4, 2022
-
         Programmer:Phone Pyae Zaw/Mithell Berbera
-
         Displays available rooms.
-
         Displays all of the rooms within our hotel and allows for user selection.
-
         Parameters:
         None
-
         Returns:
         None
         """
@@ -304,16 +285,11 @@ class HotelGUI():
     def confirm_Page(self):
         """
         Date:August 14, 2022
-
         Programmer:Thisura Nawalage/Arturo Zenteno
-
         Confirms your room.
-
         Confirms the user's selected room and marks it as unavailable.
-
         Parameters:
         None
-
         Returns:
         None
         """
@@ -470,20 +446,15 @@ class HotelGUI():
    #check user's reservation information, so will need to check the  user database for their information 
    #then check hotel database to see if confirmation number matches a room 
 
-
     #--------------------------------------------------------------------------------------------------#
     conf_list = []
     def AddLastName(self):
         """
         Date:August 8, 2022
-
         Programmer:Phone Pyae Zaw/Mithell Berbera
-
         Get information from the entry text from the user and then assigns to list array .
-
         Parameters:
         None
-
         Returns:
         None
         """
@@ -494,15 +465,11 @@ class HotelGUI():
     def LastNameConf(self):
         """
         Date:August 8, 2022
-
         Programmer:Phone Pyae Zaw/Mithell Berbera
-
         Checks if last name is in the database from the entry from addLastname Method
-
         This method will check if the last name is in the database and will print out an error if it is non-existent.
         Parameters:
         None
-
         Returns:
         None
         """
@@ -521,16 +488,11 @@ class HotelGUI():
     def OpenModify(self):
         """
         Date:August 8, 2022
-
         Programmer:Phone Pyae Zaw/Mithell Berbera
-
         Modifies user's booking.
-
         This method will ask for the user's information and allow them to cancel their booking.
-
         Parameters:
         None
-
         Returns:
         None
         """

@@ -3,17 +3,7 @@ import pandas as pd
 
 class Database():
     def write_booking(self,room,name,email):
-            #rooms = {"12":0, "42":1, "11":2, "72":3, "69420":4}
-            #df2 = pd.read_csv("user_data.csv")
-            #count = 0
-            #if (df2["Status"],[rooms[room]] == ["Available"]):
-                #df2.loc[rooms[room]] = [room,name,email,'Unavailable']
-                #df2.to_csv("user_data.csv", index=False)
-                #print(df2)
-                #count += 1
-    
-            #self.num_of_users = pd.read_csv("user_data.csv")
-            #print("Number of user", count)
+            #sends room, name, and email information to be written into user_data.csv
             with open("user_data.csv","a") as f:
                 f.writelines(room + "," + name + ","+ email + "\n")
             return 2
@@ -41,10 +31,7 @@ class Database():
                 #return 2 so that it will run the next step which is showing the confirmation page
                 return Database.write_booking(self,room_num,name_,email_)
         
-    def show_report(self):
-        df = pd.read_csv("user_data.csv")
-        df2 = df.to_string(index=False)
-        return df2
+    
         
     def num_users(self):
         user_count = 0

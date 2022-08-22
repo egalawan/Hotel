@@ -63,12 +63,12 @@ class HotelGUI():
         #self.window.configure(bg = '#458B74')
         self.window.geometry('600x600')
 
-        #Creating each 'window' space for the information
+        #Creating each 'window' space for the information to print onto
         self.main = tk.Frame(self.window)
-        self.ViewAvailableRooms = tk.Frame(self.window)
-        self.ManagerPage = tk.Frame(self.window)
-        self.Managerbottom = tk.Frame(self.window)
-        self.ModifyReservation = tk.Frame(self.window)
+        self.view_rooms = tk.Frame(self.window)
+        self.manager_page = tk.Frame(self.window)
+        self.manager_bottom = tk.Frame(self.window)
+        self.cancel_reservation = tk.Frame(self.window)
         self.confirm = tk.Frame(self.window) #after booking frame to show photo and thanks user for booking with us
         
         #calling the main page and the labels and buttons assigned to 'main'
@@ -81,7 +81,6 @@ class HotelGUI():
     #--------------------------------------------------------------------------------------------------#
     #Main Page
     def FrontPage(self):
-     
         """
         Date:August 02 2022
 
@@ -117,7 +116,7 @@ class HotelGUI():
                                         command = self.OpenRooms)
         
         self.buttonManager = tk.Button(self.main, text = 'Manager', 
-                                        command = self.OpenManagerPage)
+                                        command = self.Openmanager_page)
 
         self.buttonModify = tk.Button(self.main, text = 'Cancel reservation', 
                                         command = self.OpenModify)
@@ -163,10 +162,10 @@ class HotelGUI():
     def Go_back(self):
         """Returns to the front page"""
         #'forgetting each of the last pages
-        self.ViewAvailableRooms.pack_forget()
-        self.ModifyReservation.pack_forget()
-        self.ManagerPage.pack_forget()
-        self.Managerbottom.pack_forget()
+        self.view_rooms.pack_forget()
+        self.cancel_reservation.pack_forget()
+        self.manager_page.pack_forget()
+        self.manager_bottom.pack_forget()
 
         #adding the main page
         self.main.pack()
@@ -190,11 +189,11 @@ class HotelGUI():
         Returns:
         None
         """
-        self.ModifyReservation.pack_forget()
+        self.cancel_reservation.pack_forget()
         self.main.pack_forget()
-        self.ViewAvailableRooms.pack()
+        self.view_rooms.pack()
         
-        self.availableRooms = tk.Label(self.ViewAvailableRooms, text ="Book a Room",
+        self.availableRooms = tk.Label(self.view_rooms, text ="Book a Room",
                                                 font = ("Georgia", 20), fg="#578ee6")
         self.availableRooms.pack(side= TOP, pady= 10)
         
@@ -204,25 +203,25 @@ class HotelGUI():
             next(reader)
             ## WORK ON THIS PART
             for row in reader:
-                self.information = tk.Label(self.ViewAvailableRooms, text=" ".join(row))
+                self.information = tk.Label(self.view_rooms, text=" ".join(row))
                 self.information.pack() 
 
         
-        self.select_Room = tk.Label(self.ViewAvailableRooms, text ="Select Room:")
-        self.room_entry = Entry(self.ViewAvailableRooms)
+        self.select_Room = tk.Label(self.view_rooms, text ="Select Room:")
+        self.room_entry = Entry(self.view_rooms)
         
-        self.name = tk.Label(self.ViewAvailableRooms, text ="What is your name:")
-        self.name_entry = Entry(self.ViewAvailableRooms)
+        self.name = tk.Label(self.view_rooms, text ="What is your name:")
+        self.name_entry = Entry(self.view_rooms)
         
-        self.email = tk.Label(self.ViewAvailableRooms, text ="What is your email:")
-        self.email_entry = Entry(self.ViewAvailableRooms)
+        self.email = tk.Label(self.view_rooms, text ="What is your email:")
+        self.email_entry = Entry(self.view_rooms)
 
         
-        self.room_button = tk.Button(self.ViewAvailableRooms, text = "Confirm Room", 
+        self.room_button = tk.Button(self.view_rooms, text = "Confirm Room", 
                                                                 command = self.confirm_Page)
         
         #back buton duh
-        self.home_button = tk.Button(self.ViewAvailableRooms, text = 'Home',
+        self.home_button = tk.Button(self.view_rooms, text = 'Home',
                                         command = self.Go_back)
 
         self.select_Room.pack(pady=4)
@@ -267,17 +266,17 @@ class HotelGUI():
         self.data = Database.book_room(self,room_num,name_,email_)
         
         if(self.data == 1):
-            self.no_room = tk.Label(self.ViewAvailableRooms, text ="This room doesn't exist.")
+            self.no_room = tk.Label(self.view_rooms, text ="This room doesn't exist.")
             self.no_room.pack()
         
         if(self.data == 3):
-            self.no_book = tk.Label(self.ViewAvailableRooms, text ="This room is Unavailable.")
+            self.no_book = tk.Label(self.view_rooms, text ="This room is Unavailable.")
             self.no_book.pack()
             
     
         if (self.data == 2):
             #sends user information to another class 
-            self.ViewAvailableRooms.pack_forget()
+            self.view_rooms.pack_forget()
             self.confirm.pack() #frame pack
 
             Receipt.send_email(self,room_num,email_,name_)
@@ -306,11 +305,11 @@ class HotelGUI():
 
 
     #--------------------------------------------------------------------------------------------------#
-    def OpenManagerPage(self):
+    def Openmanager_page(self):
             """
             Date:August 20, 2022
 
-            Programmer:Thisura
+            Programmer:Thisura Nawalage
 
             The page that allows the 'Manager' of the hotel to 
 
@@ -323,34 +322,78 @@ class HotelGUI():
             None
             """
             self.main.pack_forget()
-
-            self.ManagerPage.pack(side = TOP, fill = BOTH)
-            self.Managerbottom.pack(side = BOTTOM, fill = BOTH, expand = True)
+            #self.manager_page.pack_forget()
+            #self.manager_bottom.pack_forget()
+            self.manager_page.pack(side = TOP)
+            
 
             #title and layout for the manager page
-            self.main_title = tk.Label(self.ManagerPage, text = "Rooms Booked", font = ("Times New Roman", 40))
+            self.main_title = tk.Label(self.manager_page, text = "Rooms Booked", font = ("Times New Roman", 40))
+            ##need to ask 'Manager' for password to see which manager they are
+            self.manager_pass =tk.Label(self.manager_page, text = "Please enter your password:")
+            self.manager_pass_entry = tk.Entry(self.manager_page,show = "*")
 
-
-            self.data = Database.show_report(self) #returns the Data from the text file to 'data'
-            #self.new = Database.num_users(self)
-            self.df = pd.read_csv("user_data.csv")
-
-            self.information = tk.Label(self.ManagerPage, text = (self.data), font = ("Times New Roman", 20))
-
-            #self.num_of_users = tk.Label(self.ManagerPage, text = "There are: " + self.new + " rooms being occupied by guests", font = ("Times New Roman", 20))
+            self.manager_pass_button = tk.Button(self.manager_page, text = 'next', 
+                                        command = self.Thismanager_page)
 
             #back buton duh
-            self.manager_home_button = tk.Button(self.Managerbottom, text = 'Home',
+            self.manager_home_button = tk.Button(self.manager_page, text = 'Home',
                                         command = self.Go_home)
-            self.main_title.pack()
+            
+            self.main_title.pack(side=TOP)
+            self.manager_pass.pack(side=LEFT)
+            self.manager_pass_entry.pack(side=LEFT)
+            self.manager_home_button.pack(side=BOTTOM)
+            self.manager_pass_button.pack(side=BOTTOM)
+            
 
+    def Thismanager_page(self):
+        """
+        Date:August 20 2022
+
+        Programmer:Thisura Nawalage
+
+        Displays the front page.
+
+        Displays the front page and all of the functional buttons that are on it along with a photo of our hotel.
+
+        Parameters:
+        None
+
+        Returns:
+        None
+        """
+        password_ = self.manager_pass_entry.get()
+            
+        self.manager = Manager.manager(self,password_) #returns the Data from the text file to 'data'
+        self.data = Manager.show_report(self)
+        self.df = pd.read_csv("user_data.csv")
+
+        if self.manager == "no password":
+            self.wrong_pass = tk.Label(self.manager_page, text = "Wrong Password")
+            self.wrong_pass.pack()
+        else:
+            self.manager_bottom.pack(side = BOTTOM, fill = BOTH, expand = True)
+            self.manager_page.pack_forget()
+            self.main_title = tk.Label(self.manager_bottom, text = "Rooms Booked", font = ("Times New Roman", 40))
+            self.managername = tk.Label(self.manager_bottom,text = "Welcome Manager: " + (self.manager), font = ("Times New Roman", 20))
+            self.information = tk.Label(self.manager_bottom, text = (self.data), font = ("Times New Roman", 20))
+
+            #self.num_of_users = tk.Label(self.manager_page, text = "There are: " + self.new + " rooms being occupied by guests", font = ("Times New Roman", 20))
+
+            #back buton duh
+            self.manager_home_button = tk.Button(self.manager_bottom, text = 'Home',
+                                        command = self.Go_home)
+
+            self.main_title.pack()
+            self.managername.pack()
             self.information.pack(pady = 10)
-            #self.num_of_users.pack(pady = 10)
             self.manager_home_button.pack()
+            #self.num_of_users.pack(pady = 10)
 
     def Go_home(self):
-        self.ManagerPage.pack_forget()
-        self.Managerbottom.pack_forget()
+        self.manager_page.pack_forget()
+        self.manager_bottom.pack_forget()
         self.main.pack()
     #--------------------------------------------------------------------------------------------------#               
     
@@ -372,19 +415,19 @@ class HotelGUI():
         None
         """
         self.main.pack_forget()
-        self.ModifyReservation.pack()
+        self.cancel_reservation.pack()
 
-        self.email = tk.Label(self.ModifyReservation, text = 'Enter Email:')
-        self.email_entry = Entry(self.ModifyReservation)
+        self.email = tk.Label(self.cancel_reservation, text = 'Enter Email:')
+        self.email_entry = Entry(self.cancel_reservation)
         
-        self.room_num = tk.Label(self.ModifyReservation, text = 'Enter Room Number:')
-        self.room_num_entry = Entry(self.ModifyReservation)
+        self.room_num = tk.Label(self.cancel_reservation, text = 'Enter Room Number:')
+        self.room_num_entry = Entry(self.cancel_reservation)
 
-        self.button_newnext = tk.Button(self.ModifyReservation, text = 'next',
+        self.button_newnext = tk.Button(self.cancel_reservation, text = 'next',
                                         command = self.LastNameConf)
 
         #back buton duh
-        self.back_button = tk.Button(self.ModifyReservation, text = 'Home',
+        self.back_button = tk.Button(self.cancel_reservation, text = 'Home',
                                         command = self.Go_back)
 
         ### in the window
@@ -435,17 +478,17 @@ class HotelGUI():
             if (self.email_conf, self.room_conf in self.reader):
                 self.answer = Database.cancel_room(self,self.room_conf,self.email_conf)
                 if(self.answer == 0):
-                    self.ConfNum2 = tk.Label(self.ModifyReservation, text = "This room doesn't exist.")
+                    self.ConfNum2 = tk.Label(self.cancel_reservation, text = "This room doesn't exist.")
                     self.ConfNum2.pack()
                 elif(self.answer == 1):
-                    self.ConfNum3 = tk.Label(self.ModifyReservation, text = "This room is already available. No need to cancel.")
+                    self.ConfNum3 = tk.Label(self.cancel_reservation, text = "This room is already available. No need to cancel.")
                     self.ConfNum3.pack()
 
                 #Customer.name(self)
             else:
-                self.ConfNum = tk.Label(self.ModifyReservation, text = 'Error')
+                self.ConfNum = tk.Label(self.cancel_reservation, text = 'Error')
                 self.ConfNum.pack()
-                #self.ModifyReservation.pack_forget()
+                #self.cancel_reservation.pack_forget()
     #--------------------------------------------------------------------------------------------------#
 
     #--------------------------------------------------------------------------------------------------#

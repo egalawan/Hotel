@@ -10,7 +10,7 @@ class Database():
 
     def book_room(self,room_num,name_,email_):
         #our rooms with the index number
-        rooms = {"12":0, "42":1, "11":2, "72":3, "69420":4}
+        rooms = {"12":0, "42":1, "11":2, "72":3, "20":4}
         #panda reading to inventory
         df = pd.read_csv("inventory.csv")
         
@@ -31,21 +31,8 @@ class Database():
                 #return 2 so that it will run the next step which is showing the confirmation page
                 return Database.write_booking(self,room_num,name_,email_)
         
-    
-        
-    def num_users(self):
-        user_count = 0
-        for row in open("user_data.csv"):
-            (row)
-            user_count+= 1
-        #self.df = pd.read_csv("user_data.csv")
-        #self.user = len(self.df)
-        new = str(user_count)
-        return new
-    #--------------------------#
-
     def cancel_room(self,room_num,email):
-        self.rooms = {"12":0, "42":1, "11":2, "72":3, "69420":4}
+        self.rooms = {"12":0, "42":1, "11":2, "72":3, "20":4}
         
         self.df = pd.read_csv("inventory.csv")
         self.user_df2 = pd.read_csv("user_data.csv")
@@ -69,12 +56,11 @@ class Database():
                 #changing inventory.csv so it says available
                 self.df.loc[self.df['Room Number'] == '#' + str(room_num), 'Status'] = 'Available'
                 self.df.to_csv("inventory.csv", index=False)
-
+                
                 if (self.df["Status"].values[self.rooms[room_num]] == "Available"):
-                    self.df.to_csv("inventory.csv", index=False)
-                    print("You have cancelled your booking.")   
-                ###delete from the user_data.csv
-                return 2
+                        self.df.to_csv("inventory.csv", index=False)
+                        ###delete from the user_data.csv
+                        return 2
         
         ##
                  

@@ -3,48 +3,66 @@ import pandas as pd
 
 class Database():
     def write_booking(self,room,name,email):
-            with open("user_data.csv", 'a') as f:
-                self.header = ['Room Number,Name,Email']
-                self.num_of_users = pd.read_csv("user_data.csv")
-                print("Number of user", len(self.num_of_users))
-                f.writelines("\n" + room + "," + name + ","+ email)
+            #rooms = {"12":0, "42":1, "11":2, "72":3, "69420":4}
+            #df2 = pd.read_csv("user_data.csv")
+            #count = 0
+            #if (df2["Status"],[rooms[room]] == ["Available"]):
+                #df2.loc[rooms[room]] = [room,name,email,'Unavailable']
+                #df2.to_csv("user_data.csv", index=False)
+                #print(df2)
+                #count += 1
+    
+            #self.num_of_users = pd.read_csv("user_data.csv")
+            #print("Number of user", count)
+            with open("user_data.csv","a") as f:
+                f.writelines(room + "," + name + ","+ email + "\n")
+            return 2
 
-    def book_room(self,room_num):
+    def book_room(self,room_num,name_,email_):
+        #our rooms with the index number
         rooms = {"12":0, "42":1, "11":2, "72":3, "69420":4}
-        #room_num = "12"
+        #panda reading to inventory
         df = pd.read_csv("inventory.csv")
         
         if room_num not in rooms:
-                print("This room doesn't exist.")
-                return 0
-
-        elif (df["Status"].values[rooms[room_num]] == "Unavailable"):
-                print("This room is Unavailable.")
+                #checking if the room is in the rooms array
+                self.nonexist = "This room doesn't exist."
                 return 1
 
+        elif (df["Status"].values[rooms[room_num]] == "Unavailable"):
+                #checks the inventory to see if the room is already book by another customer
+                self.text_taken ="This room is Unavailable."
+                return 3
+
         elif (df["Status"].values[rooms[room_num]] == "Available"):
+                #if the room is available then change it to unavailable
                 df.loc[df['Room Number'] == '#' + str(room_num), 'Status'] = 'Unavailable'
                 df.to_csv("inventory.csv", index=False)
-                print("Your reservation was made.")
-                print(len(df))
-                return 2
+                #return 2 so that it will run the next step which is showing the confirmation page
+                return Database.write_booking(self,room_num,name_,email_)
         
     def show_report(self):
-        self.df = pd.read_csv("user_data.csv")
-        return self.df.head()
+        df = pd.read_csv("user_data.csv")
+        df2 = df.to_string(index=False)
+        return df2
         
     def num_users(self):
-        self.df = pd.read_csv("user_data.csv")
-        self.user = len(self.df)
-        new = str(self.user)
+        user_count = 0
+        for row in open("user_data.csv"):
+            (row)
+            user_count+= 1
+        #self.df = pd.read_csv("user_data.csv")
+        #self.user = len(self.df)
+        new = str(user_count)
         return new
-    
-    def cancel_room(self,password,room_num,email):
+    #--------------------------#
+
+    def cancel_room(self,room_num,email):
         self.rooms = {"12":0, "42":1, "11":2, "72":3, "69420":4}
-        self.real = {"0":0, "1":1, "2":2, "3":3, "4":4}
         
         self.df = pd.read_csv("inventory.csv")
-        self.df2 = pd.read_csv("user_data.csv")
+        self.user_df2 = pd.read_csv("user_data.csv")
+        in_file =self.user_df2.isin([email]).any().any() 
 
         if (room_num not in self.rooms):
             print("This room doesn't exist.")
@@ -54,17 +72,24 @@ class Database():
             print("This room is already available. No need to cancel.")
             return 1
         
-        #######need to work on cancel room still
-        elif (self.df2["Room Number"].values[self.real[password]] == room_num):
-            print("hello")
-            self.df2.drop(index = password)
-            #self.df2.to_csv("room_data.csv", index =False)
-            if (self.df.loc[self.df['Room Number'] == '#' + str(room_num), 'Status'] == 'Available'):
-                (self.df["Status"].values[self.rooms[room_num]] == "Unavailable")
+        ##need to work on cancel room still
+        #locate if the room number that the user input and the 
+        elif (in_file):
+                #deletes the row in user_data.csv that has the email in it
+                self.user_df2.drop(self.user_df2[(self.user_df2['Email'] == email)].index, inplace=True)
+                self.user_df2.to_csv("user_data.csv", index=False)
+
+                #changing inventory.csv so it says available
+                self.df.loc[self.df['Room Number'] == '#' + str(room_num), 'Status'] = 'Available'
                 self.df.to_csv("inventory.csv", index=False)
-                print("You have cancelled your booking.")   
+
+                if (self.df["Status"].values[self.rooms[room_num]] == "Available"):
+                    self.df.to_csv("inventory.csv", index=False)
+                    print("You have cancelled your booking.")   
                 ###delete from the user_data.csv
-            return 2
+                return 2
+        
+        ##
                  
         
         

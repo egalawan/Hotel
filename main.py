@@ -9,6 +9,7 @@ from tkinter import messagebox
 from tkinter.messagebox import showinfo
 from database import Database
 from manager import Manager
+from receipt import Receipt
 
 
 class HotelGUI():
@@ -103,22 +104,15 @@ class HotelGUI():
 
         #self.canvas_ = Canvas(self.main, width=250, height=250)
         
-
+        ##each of the different 'words' on the gui page welcoming the user
         self.welcome_text = tk.Label(self.main, text ="Welcome to Hotel Scrummy",
                                                 font = ("Georgia", 20), fg= "#578ee6")
 
         self.Info_text = tk.Label(self.main, text ="from Team Damp",
                                                 font = ("Times New Roman", 15), fg= "#ffb3e9")
                                                 
+        ## Four buttons that we show up on the front page of the GUI
 
-        # self.buttonLogin = tk.Button(self.main, text = 'Log In',
-        #                                               activebackground = 'green',
-        #                                               foreground= "green",
-        #                                               command = self.OpenLogin)
-
-        # self.buttonRegister = tk.Button(self.main, text = 'Register', 
-        #                                 command = self.OpenRegister)
-        
         self.buttonOpenRooms = tk.Button(self.main, text = 'Available rooms', 
                                         command = self.OpenRooms)
         
@@ -145,7 +139,7 @@ class HotelGUI():
         self.labelImage = tk.Label(self.main,image=self.my_img)
         #self.labelImage.image = self.my_img
         
-
+        
         #Main Window Page with all the functions to show the order on the page
         #.pack and .pack() are like the printing on the gui,
         #there are different ways to print .pack makes it a little easier to place
@@ -267,42 +261,49 @@ class HotelGUI():
         
         #Database for hotel, writing into file
         room_num = self.room_entry.get()
-        self.data = Database.book_room(self,room_num)
+        name_ = self.name_entry.get()
         
+        email_ = self.email_entry.get()
+        self.data = Database.book_room(self,room_num,name_,email_)
+        
+        if(self.data == 1):
+            self.no_room = tk.Label(self.ViewAvailableRooms, text ="This room doesn't exist.")
+            self.no_room.pack()
+        
+        if(self.data == 3):
+            self.no_book = tk.Label(self.ViewAvailableRooms, text ="This room is Unavailable.")
+            self.no_book.pack()
+            
+    
         if (self.data == 2):
             #sends user information to another class 
-            #lst = [self.email_entry.get(), self.room_entry.get(), self.name_entry.get()]
-            #s = ",".join(lst)
-            Database.write_booking(self,self.room_entry.get(),self.name_entry.get(),self.email_entry.get())
-            conf_number = Database.num_users(self)
-            ##
             self.ViewAvailableRooms.pack_forget()
+            self.confirm.pack() #frame pack
 
-            self.confirm.pack()
+            Receipt.send_email(self,room_num,email_,name_)
+
             ##TITLE LABEL AGAIN
-            self.conf_label = tk.Label(self.confirm, text ="Your confirmation number is: " + conf_number,
-                                                    font = ("Georgia", 20), fg="#578ee6")
-
             self.thankyou_label = tk.Label(self.confirm, text ="Thank you for booking",
                                                     font = ("Georgia", 20), fg="#578ee6")
 
-            self.pic2_ = Image.open("thankyou.png")
+            self.pic2_ = Image.open("thankyou.webp")
             self.pic2_resize = self.pic2_.resize((350,350))
             self.my_img2 = ImageTk.PhotoImage(self.pic2_resize)
 
             #making the label
             self.labelImage2 = tk.Label(self.confirm,image=self.my_img2)
-            #self.labelImage.image = self.my_img
-            self.conf_label.pack()
+
             self.thankyou_label.pack(pady= 10)
             self.labelImage2.pack()
+            
 
         else:
             print("try again")
 
 
     #check user's reservation information, so will need to check the  user database for their information 
-    #then check hotel database to see if confirmation number matches a room 
+
+
 
     #--------------------------------------------------------------------------------------------------#
     def OpenManagerPage(self):
@@ -328,29 +329,25 @@ class HotelGUI():
 
             #title and layout for the manager page
             self.main_title = tk.Label(self.ManagerPage, text = "Rooms Booked", font = ("Times New Roman", 40))
-            #self.column_title = tk.Label(self.Managerbottom, text = "Room       Name   Email", font = ("Times New Roman", 20))
+
 
             self.data = Database.show_report(self) #returns the Data from the text file to 'data'
-            self.new = Database.num_users(self)
+            #self.new = Database.num_users(self)
             self.df = pd.read_csv("user_data.csv")
 
             self.information = tk.Label(self.ManagerPage, text = (self.data), font = ("Times New Roman", 20))
 
-            self.num_of_users = tk.Label(self.ManagerPage, text = "There are: " + self.new + " rooms being occupied by guests", font = ("Times New Roman", 20))
+            #self.num_of_users = tk.Label(self.ManagerPage, text = "There are: " + self.new + " rooms being occupied by guests", font = ("Times New Roman", 20))
 
             #back buton duh
             self.manager_home_button = tk.Button(self.Managerbottom, text = 'Home',
                                         command = self.Go_home)
             self.main_title.pack()
-            #self.column_title.pack() 
+
             self.information.pack(pady = 10)
-            self.num_of_users.pack(pady = 10)
+            #self.num_of_users.pack(pady = 10)
             self.manager_home_button.pack()
-            
-            #with open('inventory.csv', 'r') as f:
-                #for row in self.reader2:
-                    #self.information = tk.Label(self.ManagerPage, text=" ".join(row))
-                    #self.information.pack()
+
     def Go_home(self):
         self.ManagerPage.pack_forget()
         self.Managerbottom.pack_forget()
@@ -383,9 +380,6 @@ class HotelGUI():
         self.room_num = tk.Label(self.ModifyReservation, text = 'Enter Room Number:')
         self.room_num_entry = Entry(self.ModifyReservation)
 
-        self.ConfNum = tk.Label(self.ModifyReservation, text = 'Enter Confirmation Number:')
-        self.ConfNum_entry = Entry(self.ModifyReservation, show = "*")
-
         self.button_newnext = tk.Button(self.ModifyReservation, text = 'next',
                                         command = self.LastNameConf)
 
@@ -399,9 +393,6 @@ class HotelGUI():
 
         self.room_num.pack()
         self.room_num_entry.pack()
-
-        self.ConfNum.pack()
-        self.ConfNum_entry.pack()
  
         self.button_newnext.pack()
         #printing back button
@@ -409,7 +400,6 @@ class HotelGUI():
         #On the window
     
 
-    conf_list = []
     def LastNameConf(self):
         """
         Date:August 8, 2022
@@ -425,13 +415,16 @@ class HotelGUI():
         Returns:
         None
         """
+        ##array to hold the email and room num
+        self.conf_list = []
+
         self.name_Conf=[self.email_entry.get(),
-                    self.ConfNum_entry.get(),self.room_num_entry.get()]
+                        self.room_num_entry.get()]
         self.conf_list.append(self.name_Conf)
 
         self.email_conf = self.email_entry.get()
         self.room_conf = self.room_num_entry.get()
-        self.num_conf = self.ConfNum_entry.get()
+
        
         #self.df = pd.read_csv("hotels.csv")
         #self.df.loc[self.df['Room Number'] == '#' + room, 'Status'] = 'Available'
@@ -440,7 +433,7 @@ class HotelGUI():
         with open('user_data.csv', 'r') as f:
             self.reader = f.read()
             if (self.email_conf, self.room_conf in self.reader):
-                self.answer = Database.cancel_room(self,self.num_conf,self.room_conf,self.email_conf)
+                self.answer = Database.cancel_room(self,self.room_conf,self.email_conf)
                 if(self.answer == 0):
                     self.ConfNum2 = tk.Label(self.ModifyReservation, text = "This room doesn't exist.")
                     self.ConfNum2.pack()

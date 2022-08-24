@@ -61,8 +61,5 @@ class Database():
                         self.df.to_csv("inventory.csv", index=False)
                         ###delete from the user_data.csv
                         return 2
-        
-        ##
-                 
-        
+
         

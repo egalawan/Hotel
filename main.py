@@ -1,13 +1,9 @@
 import tkinter as tk
-#from tkinter import ttk
 from tkinter import *
-from turtle import left
 from PIL import Image, ImageTk
 import csv
 from csv import *
 import pandas as pd
-from tkinter import messagebox
-from tkinter.messagebox import showinfo
 from database import Database
 from manager import Manager
 from receipt import Receipt
@@ -383,11 +379,13 @@ class HotelGUI():
         None
         """
         password_ = self.manager_pass_entry.get()
-            
+        
         self.manager = Manager.manager(self,password_) #returns the Data from the text file to 'data'
+        #gets the information from the user_data and then gives it to 'data'
         self.data = Manager.show_report(self)
         self.df = pd.read_csv("user_data.csv")
 
+        #if the manager method sends back no password then show that its wrong password
         if self.manager == "no password":
             self.wrong_pass = tk.Label(self.manager_page, text = "Wrong Password")
             self.wrong_pass.pack()
@@ -437,6 +435,7 @@ class HotelGUI():
         Returns:
         None
         """
+        #forgets the previous pack
         self.main.pack_forget()
         self.cancel_reservation.pack()
 
